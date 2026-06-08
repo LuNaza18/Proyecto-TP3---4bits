@@ -33,59 +33,223 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <title>Registro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body{
-            background: #111827;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-        }
-        .register-box{
-            width: 420px;
-            background: #1F2937;
-            padding: 30px;
-            border-radius: 15px;
-        }
-        .form-control{
-            background: #374151;
-            border: none;
-            color: white;
-        }
-        .form-control:focus{
-            background: #374151;
-            color: white;
-            box-shadow: none;
-        }
+       *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    font-family:'Segoe UI',sans-serif;
+}
+
+#video-fondo{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-2;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:rgba(10,10,20,.75);
+    z-index:-1;
+}
+
+.register-box{
+    width:480px;
+    padding:40px;
+    border-radius:25px;
+
+    background:rgba(17,24,39,.75);
+    backdrop-filter:blur(15px);
+
+    border:2px solid rgba(236,72,153,.4);
+
+    box-shadow:
+        0 0 20px rgba(236,72,153,.4),
+        0 0 50px rgba(139,92,246,.3);
+
+    color:white;
+}
+
+.contenedor-logo{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.icono-registro{
+    font-size:3rem;
+    margin-bottom:10px;
+}
+
+.logo-titulo{
+    font-size:4rem;
+    font-weight:900;
+    letter-spacing:4px;
+
+    background:linear-gradient(
+        90deg,
+        #A855F7,
+        #EC4899
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.logo-subtitulo{
+    color:#E9D5FF;
+    margin-top:10px;
+    letter-spacing:1px;
+}
+
+.contenedor-logo::after{
+    content:"";
+    display:block;
+    width:140px;
+    height:3px;
+    margin:15px auto 0;
+
+    background:linear-gradient(
+        90deg,
+        #8B5CF6,
+        #EC4899
+    );
+
+    border-radius:20px;
+}
+
+.form-control{
+    background:rgba(255,255,255,.08);
+    border:1px solid #8B5CF6;
+    color:white;
+}
+
+.form-control:focus{
+    background:rgba(255,255,255,.12);
+    color:white;
+    border-color:#EC4899;
+
+    box-shadow:
+        0 0 10px rgba(236,72,153,.5);
+}
+
+.btn-primary{
+    border:none;
+    border-radius:12px;
+    padding:12px;
+
+    font-weight:bold;
+
+    background:linear-gradient(
+        135deg,
+        #8B5CF6,
+        #EC4899
+    );
+}
+
+.btn-primary:hover{
+    background:linear-gradient(
+        135deg,
+        #A855F7,
+        #F472B6
+    );
+}
+
+.text-info{
+    color:#F472B6 !important;
+    text-decoration:none;
+}
     </style>
 </head>
 <body>
+
+    <video autoplay muted loop id="video-fondo">
+        <source src="imagenes/4417-179384231.mp4" type="video/mp4">
+    </video>
+
     <div class="register-box">
-        <h2 class="text-center mb-4">Registro de usuario</h2>
+
+        <div class="contenedor-logo">
+
+           
+
+            <h1 class="logo-titulo">4Bits</h1>
+
+            <p class="logo-subtitulo">
+                Crea tu cuenta y comienza a comprar
+            </p>
+
+        </div>
+
+        
 
         <?php if($mensaje !== ''): ?>
-            <div class="alert alert-danger"><?php echo $mensaje; ?></div>
+            <div class="alert alert-danger">
+                <?php echo $mensaje; ?>
+            </div>
         <?php endif; ?>
 
-        <form method="POST">
+        <form method="POST" autocomplete="off">
+
             <div class="mb-3">
-                <label>Nombre</label>
-                <input type="text" name="nombre" class="form-control" required>
+                <label class="form-label">Nombre completo</label>
+                <input
+                    type="text"
+                    name="nombre"
+                    class="form-control"
+                    autocomplete="off"
+                    required
+                >
             </div>
+
             <div class="mb-3">
-                <label>Email</label>
-                <input type="email" name="email" class="form-control" required>
+                <label class="form-label">Correo electrónico</label>
+                <input
+                    type="email"
+                    name="email"
+                    class="form-control"
+                    autocomplete="off"
+                    required
+                >
             </div>
+
             <div class="mb-3">
-                <label>Contraseña</label>
-                <input type="password" name="password" class="form-control" required>
+                <label class="form-label">Contraseña</label>
+                <input
+                    type="password"
+                    name="password"
+                    class="form-control"
+                    autocomplete="new-password"
+                    required
+                >
             </div>
-            <button class="btn btn-primary w-100">Registrarse</button>
+
+            <button class="btn btn-primary w-100">
+                Crear Cuenta
+            </button>
+
         </form>
 
-        <div class="mt-3 text-center">
-            <a href="login.php" class="text-white">Ir al login</a>
+        <div class="mt-4 text-center">
+            <span>¿Ya tienes cuenta?</span>
+            <a href="login.php" class="text-info">
+                Inicia sesión
+            </a>
         </div>
+
     </div>
+
 </body>
 </html>
